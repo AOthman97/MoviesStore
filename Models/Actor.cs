@@ -6,8 +6,11 @@ namespace MoviesStore.Models
     {
         [Key]
         public int ActorId { get; set; }
-        public int FullName { get; set; }
+        public string FullName { get; set; }
         public string? ProfileImagePath { get; set; }
-        public int Bio { get; set; }
+        public string Bio { get; set; }
+
+        // Relationship between the actors and the movies
+        public List<ActorsMovies> ActorsMovies { get; set; }
     }
 }
