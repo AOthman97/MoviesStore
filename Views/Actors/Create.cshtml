@@ -1,0 +1,42 @@
+﻿@*Define the model/s that you're working with*@
+@model Actor
+
+@*Define the ViewData, Which should display the data*@
+@{
+    ViewData["Title"] = "Add Actor";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1 class="display-1">Add a new Actor</h1>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                </form>
+                <div class="form-group">
+                    <label class="control-label" asp-for="ProfileImagePath"></label>
+                    <input class="form-control" asp-for="ProfileImagePath" />
+                    <span class="text-danger" asp-validation-for="ProfileImagePath"></span>
+                </div>
+                 <div class="form-group">
+                    <label class="control-label" asp-for="FullName"></label>
+                    <input class="form-control" asp-for="FullName" />
+                    <span class="text-danger" asp-validation-for="FullName"></span>
+                </div>
+                 <div class="form-group">
+                    <label class="control-label" asp-for="Bio"></label>
+                    <input class="form-control" asp-for="Bio" />
+                    <span class="text-danger" asp-validation-for="Bio"></span>
+                </div>
+                <div class="form-group">
+                    <input class="btn btn-outline-success" value="Create" type="submit" />
+                    @*We've just defined the action here because the default controller is the one in the current folder, Else define asp-controller=""*@
+                    <a class="btn btn-outline-secondary" asp-action="Index">Show All Actors</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

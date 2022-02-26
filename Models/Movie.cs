@@ -8,12 +8,19 @@ namespace MoviesStore.Models
     {
         [Key]
         public int MovieId { get; set; }
+        [Display(Name = "Name")]
         public string? MovieName { get; set; }
+        [Display(Name = "Description")]
         public string? MovieDescription { get; set; }
+        [Display(Name = "Image")]
         public string? MovieImagePath { get; set; }
+        [Display(Name = "Start Date")]
         public DateTime StartDate { get; set; }
+        [Display(Name = "End Date")]
         public DateTime EndDate { get; set; }
+        [Display(Name = "Price")]
         public decimal Price { get; set; }
+        [Display(Name = "Category")]
         // Here fixed values using an enum
         public MovieCategory MovieCategory { get; set; }
 

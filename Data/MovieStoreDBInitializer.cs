@@ -6,16 +6,23 @@ namespace MoviesStore.Data
     {
         public static void SeedData(IApplicationBuilder applicationBuilder)
         {
-            using (var ServiceScope = applicationBuilder.ApplicationServices.CreateScope())
+            using var ServiceScope = applicationBuilder.ApplicationServices.CreateScope();
+            //using (var context = ServiceScope.ServiceProvider.GetRequiredService<MovieStoreDBContext>())
+            //{
+            //    if (context.Database.EnsureCreated())
+            //    {
+            //        var a = context.Database.ProviderName;
+            //    }
+            //}
+
+            var Context = ServiceScope.ServiceProvider.GetService<MovieStoreDBContext>();
+
+            Context.Database.EnsureCreated();
+
+            // Cinemas data
+            if (!Context.Cinemas.Any())
             {
-                var Context = ServiceScope.ServiceProvider.GetService<MovieStoreDBContext>();
-
-                Context.Database.EnsureCreatedAsync().Wait();
-
-                // Cinemas data
-                if (!Context.Cinemas.Any())
-                {
-                    Context.Cinemas.AddRange(new List<Cinema>()
+                Context.Cinemas.AddRange(new List<Cinema>()
                     {
                         new Cinema()
                         {
@@ -42,12 +49,12 @@ namespace MoviesStore.Data
                             CinemaImagePath = "https://images.unsplash.com/photo-1644916081706-e98b1fadc319?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
                         }
                     });
-                    Context.SaveChangesAsync();
-                }
-                // Producers data
-                if (!Context.Producers.Any())
-                {
-                    Context.Producers.AddRange(new List<Producer>()
+                Context.SaveChanges();
+            }
+            // Producers data
+            if (!Context.Producers.Any())
+            {
+                Context.Producers.AddRange(new List<Producer>()
                     {
                         new Producer()
                         {
@@ -74,12 +81,12 @@ namespace MoviesStore.Data
                             ProfileImagePath = "https://images.unsplash.com/photo-1644916081706-e98b1fadc319?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
                         }
                     });
-                    Context.SaveChangesAsync();
-                }
-                // Actors data
-                if (!Context.Actors.Any())
-                {
-                    Context.Actors.AddRange(new List<Actor>()
+                Context.SaveChanges();
+            }
+            // Actors data
+            if (!Context.Actors.Any())
+            {
+                Context.Actors.AddRange(new List<Actor>()
                     {
                         new Actor()
                         {
@@ -106,20 +113,20 @@ namespace MoviesStore.Data
                             ProfileImagePath = "https://images.unsplash.com/photo-1644916081706-e98b1fadc319?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
                         }
                     });
-                    Context.SaveChangesAsync();
-                }
-                // Movies data
-                if (!Context.Movies.Any())
-                {
-                    Context.Movies.AddRange(new List<Movie>()
+                Context.SaveChanges();
+            }
+            // Movies data
+            if (!Context.Movies.Any())
+            {
+                Context.Movies.AddRange(new List<Movie>()
                     {
                         new Movie()
                         {
                             MovieName = "James Clear",
                             MovieDescription = "World Director",
                             MovieImagePath = "https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=725&q=80",
-                            StartDate = DateTime.Now,   
-                            EndDate = DateTime.Now,
+                            StartDate = DateTime.Now,
+                            EndDate = DateTime.Now.AddDays(4),
                             Price = 45,
                             MovieCategory = MovieCategory.Comedy,
                             CinemaId = 2,
@@ -130,8 +137,8 @@ namespace MoviesStore.Data
                             MovieName = "May Sung",
                             MovieDescription = "Chinese Director",
                             MovieImagePath = "https://images.unsplash.com/photo-1598204865701-a5a6e15ece69?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-                            StartDate = DateTime.Now,
-                            EndDate = DateTime.Now,
+                            StartDate = DateTime.Now.AddDays(1),
+                            EndDate = DateTime.Now.AddDays(3),
                             Price = 11,
                             MovieCategory = MovieCategory.Thriller,
                             CinemaId = 4,
@@ -142,8 +149,8 @@ namespace MoviesStore.Data
                             MovieName = "Third Cinema",
                             MovieDescription = "The Third cinema",
                             MovieImagePath = "https://images.unsplash.com/photo-1581157485493-f320295061c8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-                            StartDate = DateTime.Now,
-                            EndDate = DateTime.Now,
+                            StartDate = DateTime.Now.AddDays(10),
+                            EndDate = DateTime.Now.AddDays(30),
                             Price = 49,
                             MovieCategory = MovieCategory.ScienceFiction,
                             CinemaId = 3,
@@ -154,20 +161,20 @@ namespace MoviesStore.Data
                             MovieName = "Fourth Cinema",
                             MovieDescription = "The Fourth cinema",
                             MovieImagePath = "https://images.unsplash.com/photo-1644916081706-e98b1fadc319?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-                            StartDate = DateTime.Now,
-                            EndDate = DateTime.Now,
+                            StartDate = DateTime.Now.AddDays(2),
+                            EndDate = DateTime.Now.AddDays(20),
                             Price = 28,
                             MovieCategory = MovieCategory.Thriller,
                             CinemaId = 1,
                             ProducerId = 2
                         }
                     });
-                    Context.SaveChangesAsync();
-                }
-                // Actors & Movies data
-                if (!Context.ActorsMovies.Any())
-                {
-                    Context.ActorsMovies.AddRange(new List<ActorsMovies>
+                Context.SaveChanges();
+            }
+            // Actors & Movies data
+            if (!Context.ActorsMovies.Any())
+            {
+                Context.ActorsMovies.AddRange(new List<ActorsMovies>
                     {
                         new ActorsMovies()
                         {
@@ -200,8 +207,7 @@ namespace MoviesStore.Data
                             MovieId = 3
                         }
                     });
-                    Context.SaveChangesAsync();
-                }
+                Context.SaveChanges();
             }
         }
     }

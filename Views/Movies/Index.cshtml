@@ -1,0 +1,61 @@
+﻿@*Define the model/s that you're working with*@
+@model IEnumerable<Movie>
+
+@*Define the ViewData, Which should display the data*@
+@{
+    ViewData["Title"] = "Movie";
+}
+
+@*Actual code that would be shown*@
+<div class="row">
+    @foreach (var Movie in Model)
+    {
+        <div class="col-md-4 col-xs-6 border-success mb-4">
+            <div class="card mb-4" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-12">
+                        <div class="card-header text-white bg-success">
+                            <p class="card-text">
+                                <h4 class="card-title">
+                                    @Movie.MovieName
+                                    <a class="text-white float-right"><i class="bi bi-pencil-square"></i></a>
+                                </h4>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="@Movie.MovieImagePath" width="100%" alt="@Movie.MovieName">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <p class="card-text">@Movie.MovieDescription</p>
+                            <p class="card-text"><b>Cinema: </b>@Movie.Cinema.CinemaName</p>
+                            <p class="card-text"><b>Category: </b>@Movie.MovieCategory</p>
+                            <p class="card-text"><b>Start Date: </b>@Movie.StartDate.ToString("dd/MM/yyyy")</p>
+                            <p class="card-text"><b>End Date: </b>@Movie.EndDate.ToString("dd/MM/yyyy")</p>
+                            <p class="card-text">
+                                <b>Status: </b>
+                                @if(DateTime.Now >= Movie.StartDate && DateTime.Now <= Movie.EndDate)
+                                {
+                                    <span class="badge bg-success">Available Now!</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">Featured!</span>
+                                }
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card-footer">
+                            <p class="card-text">
+                                <a class="btn btn-outline-success float-right"><i class="bi bi-eye-fill"></i> Show Details</a>
+                                <a class="btn btn-outline-primary"><i class="bi bi-cart-plus"></i> Add to Cart ($@Movie.Price)</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
